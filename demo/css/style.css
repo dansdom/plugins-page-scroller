@@ -17,11 +17,11 @@ img,a img {border:0}
 #wrap {width:900px;margin:0 auto;background:#ffefff;padding:0px 0;overflow:hidden}
 .box {height:400px;margin:20px;border:1px solid green;cursor:pointer;} 
 
-.box a {display:block;height:10px;background:red}
+.box a {display:block;height:20px;background:#ccc}
 
 .active a {color:red;font-weight:bold}  
 
 .scrollerNav {position:fixed;width:30px;top:100px;right:20px}
-.scrollerNav li {display:block;width:30px;height:30px;margin:5px 0}
+.scrollerNav li {display:block;background:#000;width:20px;height:20px;border-radius:20px;margin:5px 0;text-indent:-9000px;cursor:pointer}
 .scrollerNav li.active {background:red} 
 

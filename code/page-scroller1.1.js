@@ -5,6 +5,16 @@
 	Licensed under the MIT license:
 	http://www.opensource.org/licenses/mit-license.php
 */
+// OPTIONS: 
+// nav				: 'string'	- the selector of the navigation list
+// addEvents		: 'boolean' - allows/disables events in the children of the nav items
+// activeClass		: 'string'	- the class on the active list item
+// hasAnchor		: 'boolean'	- sets whether an anchor on the page is associated with the nav item.
+// speed			: 'integer' - sets the animation speed 
+// startPosition	: 'integer' - the item that the plugin starts on  
+
+// version 1.0 - basic functionality
+// version 1.1 - changed the animation of the position of the parent, to animate to a scroll position
 
 (function($){
 
@@ -17,7 +27,7 @@
 							'activeClass' : 'active',	// nav active class
 							'hasAnchor' : true,			// if no anchor associated with each item then set to false
 							'speed' : 500,				// speed the animation goes
-							'easing' : 'easeInOutBack',		// easing effect on the animation
+							'easing' : 'easeInOutBack',	// easing effect on the animation
 							'startPosition' : 0			// set the start position of the scroller
 					 };
  
@@ -35,7 +45,6 @@
 			scroller.nav = $(opts.nav);
 			scroller.length = scroller.nav.children().length;
 			scroller.counter = opts.startPosition;
-			scroller.css({"position":"absolute", "top":"0px", "left":"0px"});
 			if (!$.ui)
 			{
 				opts.easing = "linear";
@@ -99,8 +108,8 @@
 			{
 				keycode = e.which;
 			}
-			
-			if (keycode == 39 || keycode == 32)
+			// you can use the right, down and spacebar to move forward
+			if (keycode == 39 || keycode == 40 || keycode == 32)
 			{
 				// show the next box
 				scroller.counter += 1;
@@ -110,7 +119,8 @@
 				}
 				$.fn.pageScroller.moveScoller(scroller, opts);
 			}
-			else if (keycode == 37)
+			// you can use the left and up keys to move backward
+			else if (keycode == 37 || keycode == 38)
 			{
 				// show the previous box
 				scroller.counter -= 1;
@@ -129,9 +139,7 @@
 		var currentNavItem = scroller.nav.children(":eq(" + scroller.counter + ")"),
 			currentHref,
 			currentItem,
-			itemOffset,
-			parentOffset,
-			totalOffset;
+			itemOffset;
 		
 		currentNavItem.siblings().removeClass(opts.activeClass);
 		currentNavItem.addClass(opts.activeClass);
@@ -151,12 +159,12 @@
 		// 1. get the div offset
 		// 2. get the parent offset and then combine them
 		itemOffset = currentItem.offset().top;
-		parentOffset = scroller.offset().top;
-		totalOffset = itemOffset - parentOffset;
+		//parentOffset = scroller.offset().top;
+		//totalOffset = itemOffset - parentOffset;
 		
 		//itemOffset = offset.top;
 		//console.log("item: " + itemOffset + ", parent: " + parentOffset + ", total: " + totalOffset);
-		scroller.animate({"top":-totalOffset+"px"}, 1000, opts.easing);
+		$("html,body").stop().animate({scrollTop:itemOffset}, 1000, opts.easing);
 	};
 
 	// end of module
