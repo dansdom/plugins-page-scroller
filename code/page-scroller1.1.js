@@ -108,8 +108,8 @@
 			{
 				keycode = e.which;
 			}
-			// you can use the right, down and spacebar to move forward
-			if (keycode == 39 || keycode == 40 || keycode == 32)
+			// you can use the right and down arrows to move forward
+			if (keycode == 39 || keycode == 40)
 			{
 				// show the next box
 				scroller.counter += 1;
@@ -119,7 +119,7 @@
 				}
 				$.fn.pageScroller.moveScoller(scroller, opts);
 			}
-			// you can use the left and up keys to move backward
+			// you can use the left and up arrows to move backward
 			else if (keycode == 37 || keycode == 38)
 			{
 				// show the previous box
@@ -164,7 +164,7 @@
 		
 		//itemOffset = offset.top;
 		//console.log("item: " + itemOffset + ", parent: " + parentOffset + ", total: " + totalOffset);
-		$("html,body").stop().animate({scrollTop:itemOffset}, 1000, opts.easing);
+		$("html,body").stop().animate({scrollTop:itemOffset}, opts.speed, opts.easing);
 	};
 
 	// end of module
