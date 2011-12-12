@@ -56,6 +56,66 @@
 			// add the navigation events
 			$.fn.pageScroller.addNav(scroller, opts);
 			
+			// add event handling to detect where in the scroller the user is on window scroll
+			$(window).scroll(function(){
+				//console.log($(window).scrollTop());
+				// the first thing I need to detect is when the user gets to the bottom of the page. then I can just add active to the last item in the scroll nav
+				var scrollY = $(window).scrollTop(),
+					winY = $(window).height(),
+					docY = $(document).height(),
+					elementPositions = [],
+					elementsLength,
+					i,
+					currentItem = 0;
+					
+					if ((scrollY + winY) >= docY)
+					{
+						// then we are definately on the last item
+						// do code for last item here
+						//console.log("i hit the end of the document");
+						scroller.nav.children(":not(:last)").removeClass("active");
+						scroller.nav.children(":last").addClass("active");
+					}
+					else
+					{
+						// set up function to detect where abouts on the page we are
+						// get the scroll positions of each anchor, then find out which is closest
+						scroller.nav.children().each(function(){
+							var selector,
+								itemPosition;
+							if ($(this).attr("href"))
+							{
+								selector = $(this).attr("href");
+							}
+							else
+							{
+								selector = $(this).find("a").attr("href");
+							}
+							itemPosition = $(selector).offset().top;
+							//console.log("pos: "+itemPosition+", scrollY: "+scrollY);
+							elementPositions.push(itemPosition);
+							
+							
+						});
+						//console.log(elementPositions);
+						// loop through the element positions and find the closest one to the window scrollposition
+						elementsLength = elementPositions.length;
+						for (i = 0; i < elementsLength; i += 1)
+						{
+							
+							//console.log((scrollY - elementPositions[i]));
+							if ((scrollY - elementPositions[i]) > 0)
+							{
+								currentItem = i;
+							}
+						}
+						//console.log("currentItem: "+currentItem);
+						scroller.nav.children(":not(:eq("+currentItem+"))").removeClass("active");
+						scroller.nav.children(":eq("+currentItem+")").addClass("active");
+						// watch out for the top one. if none have been passed then show the first item. If no item was selected then show the first
+					}
+			});
+			
 			// end of plugin stuff
 		});
 
