@@ -91,12 +91,13 @@
 							{
 								selector = $(this).find("a").attr("href");
 							}
-							itemPosition = $(selector).offset().top;
+							itemPosition = Math.floor($(selector).offset().top);
 							//console.log("pos: "+itemPosition+", scrollY: "+scrollY);
 							elementPositions.push(itemPosition);
 							
 							
 						});
+						
 						//console.log(elementPositions);
 						// loop through the element positions and find the closest one to the window scrollposition
 						elementsLength = elementPositions.length;
@@ -128,7 +129,6 @@
 	{
 		// add the active class to the starting item
 		scroller.nav.children(":eq(" + opts.startPosition + ")").addClass(opts.activeClass);
-		// get the starting position of the scroller
 		
 	};
 	
@@ -201,8 +201,6 @@
 			currentItem,
 			itemOffset;
 		
-		currentNavItem.siblings().removeClass(opts.activeClass);
-		currentNavItem.addClass(opts.activeClass);
 		// find my href value
 		if (currentNavItem.attr("href"))
 		{
@@ -216,13 +214,8 @@
 		currentItem = $(currentHref);
 		
 		// find the offset of the div
-		// 1. get the div offset
-		// 2. get the parent offset and then combine them
-		itemOffset = currentItem.offset().top;
-		//parentOffset = scroller.offset().top;
-		//totalOffset = itemOffset - parentOffset;
+		itemOffset = Math.ceil(currentItem.offset().top);
 		
-		//itemOffset = offset.top;
 		//console.log("item: " + itemOffset + ", parent: " + parentOffset + ", total: " + totalOffset);
 		$("html,body").stop().animate({scrollTop:itemOffset}, opts.speed, opts.easing);
 	};
