@@ -105,7 +105,7 @@
 						{
 							
 							//console.log((scrollY - elementPositions[i]));
-							if ((scrollY - elementPositions[i]) > 0)
+							if ((scrollY - elementPositions[i]) > -1)
 							{
 								currentItem = i;
 							}
