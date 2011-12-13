@@ -75,6 +75,7 @@
 						//console.log("i hit the end of the document");
 						scroller.nav.children(":not(:last)").removeClass("active");
 						scroller.nav.children(":last").addClass("active");
+						scroller.counter = scroller.nav.children.length + 1;
 					}
 					else
 					{
@@ -191,6 +192,7 @@
 				$.fn.pageScroller.moveScoller(scroller, opts);
 			}
 			
+			return false;
 		};
 	};
 
