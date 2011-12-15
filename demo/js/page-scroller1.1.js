@@ -179,6 +179,7 @@
 					scroller.counter = 0;
 				}
 				$.fn.pageScroller.moveScoller(scroller, opts);
+				return false;
 			}
 			// you can use the left and up arrows to move backward
 			else if (keycode == 37 || keycode == 38)
@@ -190,9 +191,8 @@
 					scroller.counter = scroller.length - 1;
 				}
 				$.fn.pageScroller.moveScoller(scroller, opts);
+				return false;
 			}
-			
-			return false;
 		};
 	};
 
