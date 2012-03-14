@@ -203,14 +203,20 @@
 				
 			});
 		},
-		moveScoller : function()
+		moveScoller : function(index)
 		{
 			var scroller = this,
-				currentNavItem = this.el.nav.children(":eq(" + this.el.counter + ")"),
+				currentNavItem,
 				currentHref,
 				currentItem,
 				itemOffset;
+				
+			if (typeof index != 'undefined')
+			{
+				this.el.counter = index;
+			}
 			
+			currentNavItem = this.el.nav.children(":eq(" + this.el.counter + ")");
 			// flag to show that scroller is animating
 			this.el.isAnimating = true;
 			// find my href value
